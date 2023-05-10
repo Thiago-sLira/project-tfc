@@ -1,15 +1,17 @@
 import * as express from 'express';
+import router from './routes';
 
 class App {
   public app: express.Express;
 
-  constructor() {
+  constructor(private routes: express.Router = router) {
     this.app = express();
 
     this.config();
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use(this.routes);
   }
 
   private config():void {
