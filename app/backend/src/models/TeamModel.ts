@@ -1,7 +1,7 @@
 import Team from '../database/models/Team';
 
 export default class TeamModel {
-  constructor(private _teams = Team) {}
+  constructor(private team = Team) {}
 
   // async createTeam(teamName: string) {
   //   const team = await this.create({ teamName });
@@ -9,7 +9,7 @@ export default class TeamModel {
   // }
 
   async getAllTeams() {
-    const teams = await this._teams.findAll();
+    const teams = await this.team.findAll();
     return teams;
   }
 
