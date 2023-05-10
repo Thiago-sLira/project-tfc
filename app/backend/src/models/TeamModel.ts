@@ -1,21 +1,17 @@
-import { Team } from '../database/models';
+import Team from '../database/models/Team';
 
 export default class TeamModel {
-  private _teams = Team;
-
-  constructor(teams: Team) {
-    this._teams = teams;
-  }
+  constructor(private _teams = Team) {}
 
   // async createTeam(teamName: string) {
   //   const team = await this.create({ teamName });
   //   return team;
   // }
 
-  // async getAllTeams() {
-  //   const teams = await this.findAll();
-  //   return teams;
-  // }
+  async getAllTeams() {
+    const teams = await this._teams.findAll();
+    return teams;
+  }
 
   // async getTeamById(id: number) {
   //   const team = await this.findByPk(id);
