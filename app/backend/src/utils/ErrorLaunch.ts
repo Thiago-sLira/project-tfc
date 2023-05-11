@@ -4,7 +4,7 @@ class ErrorLaunch extends Error {
   constructor(message: string, code: number) {
     super(message);
     this.code = code;
-    // Object.setPrototypeOf(this, ErrorLaunch.prototype);
+    Object.setPrototypeOf(this, ErrorLaunch.prototype);
   }
 }
 

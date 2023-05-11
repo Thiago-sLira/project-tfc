@@ -15,6 +15,8 @@ const errorHandler: ErrorRequestHandler = (err: Error, _req, res, _next) => {
     return res.status(401).json({ message: 'Invalid token' });
   }
 
+  console.log(err);
+
   return res.status(500).json({ message: 'Erro inesperado!' });
 };
 

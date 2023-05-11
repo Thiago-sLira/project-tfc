@@ -104,7 +104,7 @@ describe('Testes do endpoint /login', () => {
         .post('/login')
         .send({
           email: 'teste@teste.com',
-          password: '123456',
+          password: 'secret_admin',
         });
 
       expect(response.status).to.be.equal(200);

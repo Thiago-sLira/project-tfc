@@ -2,7 +2,7 @@ const mockUserData = {
   id: 1,
   username: 'Testes dos Testes',
   role: 'Teste',
-  password: '123456',
+  password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
   email: 'teste@teste.com',
 };
 
