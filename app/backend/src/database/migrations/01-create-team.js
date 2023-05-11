@@ -10,7 +10,7 @@ module.exports = {
       team_name: {
         allowNull: false,
         type: Sequelize.STRING,
-      }
+      },
     });
   },
   down: async (queryInterface) => {
