@@ -1,35 +1,48 @@
 import { Model, DataTypes } from 'sequelize';
 import db from '.';
 
-class User extends Model {
-  declare username: string;
-  declare role: string;
-  declare email: string;
-  declare password: string;
+class Match extends Model {
+  declare homeTeamId: number;
+  declare homeTeamGoals: number;
+  declare awayTeamId: number;
+  declare awayTeamGoals: number;
+  declare inProgress: boolean;
 }
 
-User.init({
-  username: {
+Match.init({
+  homeTeamId: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
-  role: {
+  homeTeamGoals: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
-  email: {
+  awayTeamId: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
-  password: {
+  awayTeamGoals: {
     allowNull: false,
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
+  },
+  inProgress: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
   },
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'users',
+  modelName: 'matches',
   timestamps: false,
 });
 
-export default User;
+export default Match;
