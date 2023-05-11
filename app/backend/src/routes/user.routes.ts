@@ -4,6 +4,6 @@ import UserController from '../controllers/UserController';
 const router = Router();
 
 const userController = new UserController();
-router.post('/', (req, res) => userController.getAllTeams(req, res));
+router.post('/', (req, res) => userController.userLogin(req, res));
 
 export default router;
