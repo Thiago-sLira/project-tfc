@@ -21,27 +21,29 @@ describe('Testes do endpoint /teams', () => {
 
   describe('Testes do método GET', () => {
     beforeEach(() => {
-      modelTeamStub = sinon.stub(Team, 'findAll');
-    });
-
-    it('Retorna todos os times', async () => {
-      const response = await chai.request(app).get('/teams');
-
-      expect(response.status).to.be.equal(200);
-      expect(response.body).to.be.deep.equal(mockAllTeams);
-    });
-  });
-  describe('Testes do método GET por id', () => {
-    beforeEach(() => {
-      modelTeamStub = sinon.stub(Team, 'findOne');
-    });
-  
-    it('Retorna o time pelo id', async () => {
-      const response = await chai.request(app).get('/teams/16');
-
-      expect(response.status).to.be.equal(200);
-      expect(response.body).to.be.deep.equal(mockOneTeam);
-    });
+      modelTeamStub = sinon.stub(Team, 'findAll')
+        .resolves(mockAllTeams as unknown as Team[]);
   });
 
+  it('Retorna todos os times', async () => {
+    const response = await chai.request(app).get('/teams');
+
+    console.log('=============>', response.body);
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(mockAllTeams);
+  });
+});
+describe('Testes do método GET por id', () => {
+  beforeEach(() => {
+    modelTeamStub = sinon.stub(Team, 'findOne')
+    .resolves(mockOneTeam as unknown as Team);
+  });
+
+  it('Retorna o time pelo id', async () => {
+    const response = await chai.request(app).get('/teams/16');
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.be.deep.equal(mockOneTeam);
+  });
+});
 });
