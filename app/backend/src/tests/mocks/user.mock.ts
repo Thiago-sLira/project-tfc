@@ -6,6 +6,12 @@ const mockUserData = {
   email: 'teste@teste.com',
 };
 
+const messageFieldsUnfilled = 'All fields must be filled';
+
+const messageInvalidFields = 'Invalid email or password';
+
 export {
   mockUserData,
+  messageFieldsUnfilled,
+  messageInvalidFields,
 };
