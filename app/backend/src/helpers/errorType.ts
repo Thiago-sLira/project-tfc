@@ -5,7 +5,7 @@ const typesErrors: { [key: string]: number } = {
   'string.min': 401,
 };
 
-const readStatusError = (type: string) => typesErrors[type] || 500;
+const readStatusError = (type: string) => typesErrors[type];
 
 const errorType = {};
 

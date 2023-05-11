@@ -2,10 +2,11 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import { mockUserData, messageFieldsUnfilled, messageInvalidFields } from './mocks/user.mock';
+import { mockUserData, messageFieldsUnfilled, messageInvalidFields, mockUserDataInvalid } from './mocks/user.mock';
 import User from '../database/models/User';
 
 import { app } from '../app';
+import ErrorLaunch from '../utils/ErrorLaunch';
 
 chai.use(chaiHttp);
 
@@ -49,12 +50,12 @@ describe('Testes do endpoint /login', () => {
     });
     it('Verifica se não é possível fazer um login com email não cadastrado', async () => {
       modelUserStub = sinon.stub(User, 'findOne')
-        .resolves(undefined);
+        .resolves(mockUserDataInvalid as unknown as User);
 
       const response = await chai.request(app)
         .post('/login')
         .send({
-          email: 'teste@teste',
+          email: 'teste@teste.cm',
           password: '123456',
         });
 
@@ -63,13 +64,13 @@ describe('Testes do endpoint /login', () => {
     });
     it('Verifica se não é possível fazer um login sem senha', async () => {
       const response = await chai.request(app)
-      .post('/login')
-      .send({
-        email: 'teste@teste.com',
-      });
+        .post('/login')
+        .send({
+          email: 'teste@teste.com',
+        });
 
-    expect(response.status).to.be.equal(400);
-    expect(response.body.message).to.be.equal(messageFieldsUnfilled);
+      expect(response.status).to.be.equal(400);
+      expect(response.body.message).to.be.equal(messageFieldsUnfilled);
     });
     it('Verifica se não é possível fazer um login com senha inválida', async () => {
       const response = await chai.request(app)
@@ -109,6 +110,20 @@ describe('Testes do endpoint /login', () => {
 
       expect(response.status).to.be.equal(200);
       expect(response.body.token).not.to.be.empty;
+    });
+    it('Verifica erro 500', async () => {
+      modelUserStub = sinon.stub(User, 'findOne')
+        .throws(new Error('Internal Server Error'));
+
+      const response = await chai.request(app)
+        .post('/login')
+        .send({
+          email: 'teste@teste.com',
+          password: 'secret_admin',
+        });
+
+      expect(response.status).to.be.equal(500);
+      expect(response.body.message).to.be.equal('Internal Server Error');
     });
   });
 });
