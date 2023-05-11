@@ -1,6 +1,6 @@
 import * as jwt from 'jsonwebtoken';
 
-export default class authJWT {
+export default class AuthJWT {
   constructor(
     private configJWTDefault: jwt.SignOptions = {
       expiresIn: '7d',
