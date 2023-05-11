@@ -15,7 +15,7 @@ describe('Testes do endpoint /login', () => {
   let modelUserStub: sinon.SinonStub;
 
   afterEach(() => {
-    modelUserStub.restore();
+    sinon.restore();
   });
 
   // Verifica se possível fazer um login com sucesso (token)
@@ -26,20 +26,6 @@ describe('Testes do endpoint /login', () => {
   // Verifica se não é possível fazer um login com senha errada
 
   describe('Testes do método POST de /login', () => {
-    it('Verifica se possível fazer um login com sucesso', async () => {
-      modelUserStub = sinon.stub(User, 'findOne')
-        .resolves(mockUserData as unknown as User);
-
-      const response = await chai.request(app)
-        .post('/login')
-        .send({
-          email: 'teste@teste.com',
-          password: '123456',
-        });
-
-      expect(response.status).to.be.equal(200);
-      expect(response.body.token).not.to.be.empty;
-    });
     it('Verifica se não é possível fazer um login sem email', async () => {
       const response = await chai.request(app)
         .post('/login')
@@ -73,13 +59,13 @@ describe('Testes do endpoint /login', () => {
         });
 
       expect(response.status).to.be.equal(401);
-      expect(response.body).to.be.deep.equal(messageInvalidFields);
+      expect(response.body.message).to.be.equal(messageInvalidFields);
     });
     it('Verifica se não é possível fazer um login sem senha', async () => {
       const response = await chai.request(app)
       .post('/login')
       .send({
-        email: 'teste@teste',
+        email: 'teste@teste.com',
       });
 
     expect(response.status).to.be.equal(400);
@@ -108,7 +94,21 @@ describe('Testes do endpoint /login', () => {
         });
 
       expect(response.status).to.be.equal(401);
-      expect(response.body).to.be.deep.equal(messageInvalidFields);
+      expect(response.body.message).to.be.equal(messageInvalidFields);
+    });
+    it('Verifica se possível fazer um login com sucesso', async () => {
+      modelUserStub = sinon.stub(User, 'findOne')
+        .resolves(mockUserData as unknown as User);
+
+      const response = await chai.request(app)
+        .post('/login')
+        .send({
+          email: 'teste@teste.com',
+          password: '123456',
+        });
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body.token).not.to.be.empty;
     });
   });
 });

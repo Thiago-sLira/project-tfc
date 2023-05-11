@@ -8,6 +8,6 @@ export default class UserController {
     const { email, password } = req.body;
 
     const userToken = await this.userService.userLogin({ email, password });
-    res.status(200).json(userToken);
+    res.status(200).json({ token: userToken });
   }
 }

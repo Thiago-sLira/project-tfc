@@ -1,30 +1,32 @@
+import * as Joi from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import Joi = require('joi');
-import statusCodes from '../utils/statusCodes';
+import { readStatusError } from '../helpers/errorType';
 
 interface Login {
-  username: string;
+  email: string;
   password: string;
 }
 
 const validadeUserLogin = (loginBody: Login) => Joi.object({
-  email: Joi.string().email().required().messages({
-    'string.empty': 'All fields must be filled',
-    'string.email': 'Invalid email or password',
-  }),
-  password: Joi.string().min(6).required().messages({
-    'string.empty': 'All fields must be filled',
-    'string.min': 'Invalid email or password',
-  }),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+}).messages({
+  'string.empty': 'All fields must be filled',
+  'any.required': 'All fields must be filled',
+  'string.email': 'Invalid email or password',
+  'string.min': 'Invalid email or password',
 }).validate(loginBody);
 
 export default function validateLogin(req: Request, res: Response, next: NextFunction) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  const { error } = validadeUserLogin({ username, password });
+  const { error } = validadeUserLogin({ email, password });
 
   if (error) {
-    return res.status(statusCodes.badRequest).json({ message: error.message });
+    const { type } = error.details[0];
+    console.log(type);
+    const statusCode = readStatusError(type);
+    return res.status(statusCode).json({ message: error.message });
   }
 
   return next();
