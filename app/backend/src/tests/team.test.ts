@@ -28,7 +28,6 @@ describe('Testes do endpoint /teams', () => {
   it('Retorna todos os times', async () => {
     const response = await chai.request(app).get('/teams');
 
-    console.log('=============>', response.body);
     expect(response.status).to.be.equal(200);
     expect(response.body).to.be.deep.equal(mockAllTeams);
   });
