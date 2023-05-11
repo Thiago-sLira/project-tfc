@@ -1,10 +1,15 @@
 import * as express from 'express';
+import 'express-async-errors';
 import router from './routes';
+import errorHandler from './middlewares/errorHandler';
 
 class App {
   public app: express.Express;
 
-  constructor(private routes: express.Router = router) {
+  constructor(
+    private routes: express.Router = router,
+    private error: express.ErrorRequestHandler = errorHandler,
+  ) {
     this.app = express();
 
     this.config();
@@ -12,9 +17,10 @@ class App {
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use(this.routes);
+    this.app.use(this.error);
   }
 
-  private config():void {
+  private config(): void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
@@ -26,7 +32,7 @@ class App {
     this.app.use(accessControl);
   }
 
-  public start(PORT: string | number):void {
+  public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
   }
 }
