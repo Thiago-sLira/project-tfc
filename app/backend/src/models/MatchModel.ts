@@ -34,7 +34,7 @@ export default class MatchModel {
 
   async createMatch(match: CreateMatch) {
     const matchCreated = await this.match.create(match);
-    
+    return matchCreated;
   }
 
   // async getMatchById(id: number) {
