@@ -221,12 +221,28 @@ const dataMatchToCreate = {
   "awayTeamGoals": 2,
 };
 
+const invalidDataMatchToCreate = {
+  "homeTeamId": 8,
+  "awayTeamId": 8,
+  "homeTeamGoals": 0,
+  "awayTeamGoals": 0,
+};
+
+const invalidTeamMatchToCreate = {
+  "homeTeamId": 8984513849,
+  "awayTeamId": 8,
+  "homeTeamGoals": 0,
+  "awayTeamGoals": 0,
+};
+
 export {
   mockOneMatch,
   mockAllMatches,
   mockUpdatedMatch,
   mockMatchCreated,
   dataMatchToCreate,
+  invalidTeamMatchToCreate,
+  invalidDataMatchToCreate,
   mockAllMatchesInProgress,
   mockAllMatchesNotInProgress,
 }

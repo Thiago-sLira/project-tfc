@@ -1,3 +1,4 @@
+import { CreateMatch } from '../interfaces/MatchTypes';
 import MatchModel from '../models/MatchModel';
 
 export default class MatchService {
@@ -20,6 +21,11 @@ export default class MatchService {
   async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number) {
     const matchUpdated = await this.matchModel.updateMatch(id, homeTeamGoals, awayTeamGoals);
     return matchUpdated;
+  }
+
+  async createMatch(match: CreateMatch) {
+    const matchCreated = await this.matchModel.createMatch(match);
+    return matchCreated;
   }
 
   // async getMatchById(id: number) {

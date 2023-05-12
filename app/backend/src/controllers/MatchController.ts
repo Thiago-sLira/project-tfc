@@ -25,6 +25,11 @@ export default class MatchController {
     res.status(200).json({ matchUpdated });
   }
 
+  async createMatch(req: Request, res: Response) {
+    const matchCreated = await this.matchService.createMatch(req.body);
+    res.status(201).json(matchCreated);
+  }
+
   // async getMatchById(req: Request, res: Response) {
   //   const { id } = req.params;
   //   const match = await this.teamService.getMatchById(Number(id));

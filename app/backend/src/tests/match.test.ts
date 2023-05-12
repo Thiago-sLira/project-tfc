@@ -9,8 +9,10 @@ import {
   mockAllMatches,
   mockMatchCreated,
   dataMatchToCreate,
+  invalidDataMatchToCreate,
   mockAllMatchesInProgress,
   mockAllMatchesNotInProgress,
+  invalidTeamMatchToCreate,
 } from './mocks/match.mock';
 import AuthJWT from '../utils/AuthJWT';
 
@@ -157,6 +159,47 @@ describe('Testes do endpoint /matches', () => {
       expect(response.status).to.be.equal(201);
       expect(response.body).to.be.deep.equal(mockMatchCreated);
     });
+    it('Caso sejam passados times iguais, deve retornar 422', async () => {
+      modelMatchStub = sinon.stub(Match, 'create')
+        .resolves(undefined);
+
+      const tokenJWT = new AuthJWT().generateToken({
+        email: 'admin@admin.com',
+        role: 'admin',
+      });
+
+      const response = await chai.request(app)
+        .post('/matches')
+        .set('Authorization', tokenJWT)
+        .send(invalidDataMatchToCreate);
+
+      expect(response.status).to.be.equal(404);
+      expect(response.body.message).to.be.equal('It is not possible to create a match with two equal teams');
+    });
+    it('Caso seja passado um ou dois times inexistentes no banco de dados, deve retornar 404', async () => {
+      modelMatchStub = sinon.stub(Match, 'findByPk')
+        .resolves(undefined);
+
+      const tokenJWT = new AuthJWT().generateToken({
+        email: 'admin@admin.com',
+        role: 'admin',
+      });
+
+      const response = await chai.request(app)
+        .post('/matches')
+        .set('Authorization', tokenJWT)
+        .send(invalidTeamMatchToCreate);
+
+      expect(response.status).to.be.equal(404);
+      expect(response.body.message).to.be.equal('There is no team with such id!');
+    });
+    // it('Caso um token não seja enviado, retornar status 401', async () => {
+    //   const response = await chai.request(app)
+    //     .post('/matches');
+
+    //   expect(response.status).to.be.equal(401);
+    //   expect(response.body.message).to.be.equal('Token not found');
+    // });
   });
   // describe('Testes do método GET por id', () => {
   //   it('Retorna o time pelo id', async () => {
