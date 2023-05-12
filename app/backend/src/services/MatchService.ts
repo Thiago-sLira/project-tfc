@@ -13,6 +13,10 @@ export default class MatchService {
     return allMatches;
   }
 
+  async finishMatch(id: number) {
+    await this.matchModel.finishMatch(id);
+  }
+
   // async getMatchById(id: number) {
   //   const match = await this.matchModel.getMatchById(id);
   //   return match;
