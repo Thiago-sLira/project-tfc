@@ -1,23 +1,21 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
+import { LoginRole } from '../interfaces/LoginRole';
 import AuthJWT from '../utils/AuthJWT';
+import IRequest from '../interfaces/IRequest';
 
 export default function validateToken(
-  req: Request & { user?: number },
+  req: IRequest,
   res: Response,
   next: NextFunction,
 ) {
-  try {
-    const { authorization } = req.headers;
+  const { authorization } = req.headers;
 
-    if (!authorization) {
-      return res.status(401).json({ message: 'Token not found' });
-    }
-
-    const decodedToken = new AuthJWT().validateToken(authorization);
-    req.user = decodedToken;
-
-    return next();
-  } catch (error) {
-    next(error);
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token not found' });
   }
+
+  const decodedToken = new AuthJWT().validateToken<LoginRole>(authorization);
+  req.user = decodedToken;
+
+  return next();
 }

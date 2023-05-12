@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import UserService from '../services/UserService';
+import IRequest from '../interfaces/IRequest';
+import { LoginRole } from '../interfaces/LoginRole';
 
 export default class UserController {
   constructor(private userService = new UserService()) { }
@@ -11,10 +13,9 @@ export default class UserController {
     res.status(200).json({ token: userToken });
   }
 
-  async userRole(req: Request, res: Response) {
-    const { role } = req.user;
+  static async userRole(req: IRequest, res: Response) {
+    const { role } = req.user as LoginRole;
 
-    const userRole = await this.userService.userRole(email);
-    res.status(200).json({ role: userRole });
+    res.status(200).json({ role });
   }
 }
