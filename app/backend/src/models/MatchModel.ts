@@ -33,6 +33,8 @@ export default class MatchModel {
   }
 
   async createMatch(match: CreateMatch) {
+    const matchCreated = await this.match.create(match);
+    
   }
 
   // async getMatchById(id: number) {
