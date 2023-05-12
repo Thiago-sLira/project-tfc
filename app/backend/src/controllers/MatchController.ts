@@ -11,6 +11,12 @@ export default class MatchController {
     res.status(200).json(allMatches);
   }
 
+  async finishMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    await this.matchService.finishMatch(Number(id));
+    res.status(200).json({ message: 'Finished' });
+  }
+
   // async getMatchById(req: Request, res: Response) {
   //   const { id } = req.params;
   //   const match = await this.teamService.getMatchById(Number(id));
