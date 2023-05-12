@@ -1,6 +1,7 @@
 import { CreateMatch } from '../interfaces/MatchTypes';
 import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
+import ErrorLaunch from '../utils/ErrorLaunch';
 
 export default class MatchService {
   constructor(
@@ -30,6 +31,10 @@ export default class MatchService {
   async createMatch(match: CreateMatch) {
     const homeTeam = await this.teamModel.getTeamById(match.homeTeamId);
     const awayTeam = await this.teamModel.getTeamById(match.awayTeamId);
+
+    if (!homeTeam || !awayTeam) {
+      throw new ErrorLaunch('There is no team with such id!', 404);
+    }
 
     const matchCreated = await this.matchModel.createMatch(match);
     return matchCreated;
