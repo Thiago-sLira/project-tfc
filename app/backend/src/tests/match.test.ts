@@ -7,6 +7,8 @@ import Match from '../database/models/Match';
 import { app } from '../app';
 import {
   mockAllMatches,
+  mockMatchCreated,
+  dataMatchToCreate,
   mockAllMatchesInProgress,
   mockAllMatchesNotInProgress,
 } from './mocks/match.mock';
@@ -120,6 +122,40 @@ describe('Testes do endpoint /matches', () => {
 
       expect(response.status).to.be.equal(200);
       expect(response.body).not.to.be.empty;
+    });
+  });
+  describe('Testes do método PATCH com endpoint /matches', () => {
+    it('Caso um token não seja enviado, retornar status 401', async () => {
+      const response = await chai.request(app)
+        .post('/matches');
+
+      expect(response.status).to.be.equal(401);
+      expect(response.body.message).to.be.equal('Token not found');
+    });
+    it('Caso um token sejá enviado, mas não seja válido, retornar status 401', async () => {
+      const response = await chai.request(app)
+        .post('/matches')
+        .set('Authorization', 'invalid_token');
+
+      expect(response.status).to.be.equal(401);
+      expect(response.body.message).to.be.equal('Token must be a valid token');
+    });
+    it('Com um token válido, retorna os dados da partida, com status 201', async () => {
+      modelMatchStub = sinon.stub(Match, 'create')
+        .resolves(mockMatchCreated as unknown as Match);
+
+      const tokenJWT = new AuthJWT().generateToken({
+        email: 'admin@admin.com',
+        role: 'admin',
+      });
+
+      const response = await chai.request(app)
+        .post('/matches')
+        .set('Authorization', tokenJWT)
+        .send(dataMatchToCreate);
+
+      expect(response.status).to.be.equal(201);
+      expect(response.body).to.be.deep.equal(mockMatchCreated);
     });
   });
   // describe('Testes do método GET por id', () => {

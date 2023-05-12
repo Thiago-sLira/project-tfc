@@ -22,12 +22,10 @@ export default class MatchModel {
   }
 
   async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number) {
-    const rowsAffected = await this.match.update(
+    await this.match.update(
       { homeTeamGoals, awayTeamGoals },
       { where: { id } },
     );
-
-    console.log(rowsAffected);
 
     const matchUpdated = await this.match.scope('withTeams').findByPk(id);
     return matchUpdated;
