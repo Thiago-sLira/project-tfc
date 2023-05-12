@@ -33,7 +33,10 @@ export default class MatchModel {
   }
 
   async createMatch(match: CreateMatch) {
-    const matchCreated = await this.match.create(match);
+    const matchCreated = await this.match.create({
+      ...match,
+      inProgress: true,
+    });
     return matchCreated;
   }
 

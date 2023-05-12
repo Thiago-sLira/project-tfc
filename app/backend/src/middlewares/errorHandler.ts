@@ -15,7 +15,7 @@ const errorHandler: ErrorRequestHandler = (err: Error, _req, res, _next) => {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
 
-  // console.log(err);
+  console.log(err);
 
   return res.status(500).json({ message: 'Erro inesperado!' });
 };
