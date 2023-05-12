@@ -4,7 +4,7 @@ export default class MatchModel {
   constructor(private match = Match) {}
 
   async getAllMatches() {
-    const matches = await this.match.findAll();
+    const matches = await this.match.scope('withTeams').findAll();
     return matches;
   }
 

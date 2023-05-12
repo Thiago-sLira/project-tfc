@@ -45,4 +45,17 @@ Match.init({
   timestamps: false,
 });
 
+Match.addScope('withTeams', {
+  include: [
+    {
+      association: 'homeTeam',
+      attributes: ['teamName'],
+    },
+    {
+      association: 'awayTeam',
+      attributes: ['teamName'],
+    },
+  ],
+});
+
 export default Match;
