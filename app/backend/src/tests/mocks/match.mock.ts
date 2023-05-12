@@ -190,12 +190,12 @@ const mockAllMatchesNotInProgress = [
   },
 ];
 
-const mockFinishedMatch = {
+const mockUpdatedMatch = {
   "id": 41,
   "homeTeamId": 16,
-  "homeTeamGoals": 2,
+  "homeTeamGoals": 5,
   "awayTeamId": 9,
-  "awayTeamGoals": 0,
+  "awayTeamGoals": 1,
   "inProgress": true,
   "homeTeam": {
     "teamName": "São Paulo"
@@ -207,8 +207,9 @@ const mockFinishedMatch = {
 
 
 export {
-  mockAllMatches,
   mockOneMatch,
+  mockAllMatches,
+  mockUpdatedMatch,
   mockAllMatchesInProgress,
   mockAllMatchesNotInProgress,
 }
