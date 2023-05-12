@@ -1,3 +1,4 @@
+import { CreateMatch } from 'src/interfaces/MatchTypes';
 import Match from '../database/models/Match';
 
 export default class MatchModel {
@@ -29,6 +30,9 @@ export default class MatchModel {
 
     const matchUpdated = await this.match.scope('withTeams').findByPk(id);
     return matchUpdated;
+  }
+
+  async createMatch(match: CreateMatch) {
   }
 
   // async getMatchById(id: number) {
