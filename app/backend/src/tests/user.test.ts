@@ -6,7 +6,7 @@ import { mockUserData, messageFieldsUnfilled, messageInvalidFields, mockUserData
 import User from '../database/models/User';
 
 import { app } from '../app';
-import ErrorLaunch from '../utils/ErrorLaunch';
+import AuthJWT from '../utils/AuthJWT';
 
 chai.use(chaiHttp);
 
@@ -25,6 +25,9 @@ describe('Testes do endpoint /login', () => {
   // Verifica se não é possível fazer um login com email não cadastrado
   // Verifica se não é possível fazer um login sem senha
   // Verifica se não é possível fazer um login com senha errada
+  // Verifica se não é possível retornar um objeto com o tipo usuário sem um token
+  // Verifica se não é possível retornar um objeto com o tipo usuário com um token inválido
+  // Verifica se é possível retornar um objeto com um token válido
 
   describe('Testes do método POST de /login', () => {
     it('Verifica se não é possível fazer um login sem email', async () => {
@@ -123,7 +126,42 @@ describe('Testes do endpoint /login', () => {
         });
 
       expect(response.status).to.be.equal(500);
-      expect(response.body.message).to.be.equal('Internal Server Error');
+      expect(response.body.message).to.be.equal('Erro inesperado!');
+    });
+  });
+  describe('Testes do método GET de /login/role', () => {
+    it('Caso um token não seja enviado, retornar status 401', async () => {
+      const response = await chai.request(app)
+        .get('/login/role');
+
+      expect(response.status).to.be.equal(401);
+      expect(response.body.message).to.be.equal('Token not found');
+    });
+    it('Caso um token sejá enviado, mas não seja válido, retornar status 401', async () => {
+      const response = await chai.request(app)
+        .get('/login/role')
+        .set('Authorization', 'invalid_token');
+
+      expect(response.status).to.be.equal(401);
+      expect(response.body.message).to.be.equal('Token must be a valid token');
+    });
+    it('Caso o token seja enviado, e seja válido, retornar status 200', async () => {
+      // modelUserStub = sinon.stub(AuthJWT, 'validateToken')
+      //   .returns({
+      //     email: 'admin@admin.com',
+      //     role: 'admin',
+      //   });
+      const tokenJWT = new AuthJWT().generateToken({
+        email: 'admin@admin.com',
+        role: 'admin',
+        });
+
+      const response = await chai.request(app)
+        .get('/login/role')
+        .set('Authorization', tokenJWT);
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal({ "role": "admin" });
     });
   });
 });

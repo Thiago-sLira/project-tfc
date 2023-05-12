@@ -17,8 +17,8 @@ export default class AuthJWT {
     return token;
   };
 
-  validateToken = (token: string) => {
+  validateToken = <Type>(token: string): Type => {
     const isValid = jwt.verify(token, this.secretKey);
-    return isValid;
+    return isValid as Type;
   };
 }

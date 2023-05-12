@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import User from '../database/models/User';
 import UserModel from '../models/UserModel';
-import AuthJWT from '../utils/authJWT';
+import AuthJWT from '../utils/AuthJWT';
 import ErrorLaunch from '../utils/ErrorLaunch';
 
 export default class UserService {
