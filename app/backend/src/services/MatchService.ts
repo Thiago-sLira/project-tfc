@@ -28,6 +28,8 @@ export default class MatchService {
   }
 
   async createMatch(match: CreateMatch) {
+    const homeTeam = await this.teamModel.getTeamById(match.homeTeamId);
+
     const matchCreated = await this.matchModel.createMatch(match);
     return matchCreated;
   }
