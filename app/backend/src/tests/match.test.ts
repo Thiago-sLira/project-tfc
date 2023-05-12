@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 import Match from '../database/models/Match';
 
 import { app } from '../app';
-import { mockAllMatches, mockOneMatch } from './mocks/match.mock';
+import { mockAllMatches, mockAllMatchesInProgress, mockAllMatchesNotInProgress } from './mocks/match.mock';
 
 chai.use(chaiHttp);
 
@@ -27,6 +27,28 @@ describe('Testes do endpoint /matches', () => {
 
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal(mockAllMatches);
+    });
+  });
+  describe('Testes do método GET com query', async () => {
+    it('Retorna todas as partidas que estão em progresso', async () => {
+      modelMatchStub = sinon.stub(Match, 'findAll')
+        .resolves(mockAllMatchesInProgress as unknown as Match[]);
+
+      const response = await chai.request(app).get('/matches?inProgress=true');
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(mockAllMatchesInProgress);
+    });
+  });
+  describe('Testes do método GET com query', async () => {
+    it('Retorna todas as partidas que não estão em progresso', async () => {
+      modelMatchStub = sinon.stub(Match, 'findAll')
+        .resolves(mockAllMatchesNotInProgress as unknown as Match[]);
+
+      const response = await chai.request(app).get('/matches?inProgress=false');
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(mockAllMatchesNotInProgress);
     });
   });
   // describe('Testes do método GET por id', () => {
