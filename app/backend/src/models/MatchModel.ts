@@ -1,4 +1,4 @@
-import { CreateMatch } from 'src/interfaces/MatchTypes';
+import { CreateMatch } from '../interfaces/MatchTypes';
 import Match from '../database/models/Match';
 
 export default class MatchModel {
