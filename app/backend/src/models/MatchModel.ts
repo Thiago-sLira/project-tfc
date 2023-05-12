@@ -17,6 +17,10 @@ export default class MatchModel {
     return matches;
   }
 
+  async finishMatch(id: number) {
+    await this.match.update({ inProgress: false }, { where: { id } });
+  }
+
   // async getMatchById(id: number) {
   //   const match = await this.match.findByPk(id);
   //   return match;
