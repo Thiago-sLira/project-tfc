@@ -173,7 +173,7 @@ describe('Testes do endpoint /matches', () => {
         .set('Authorization', tokenJWT)
         .send(invalidDataMatchToCreate);
 
-      expect(response.status).to.be.equal(404);
+      expect(response.status).to.be.equal(422);
       expect(response.body.message).to.be.equal('It is not possible to create a match with two equal teams');
     });
     it('Caso seja passado um ou dois times inexistentes no banco de dados, deve retornar 404', async () => {
