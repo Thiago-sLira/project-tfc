@@ -17,6 +17,11 @@ export default class MatchService {
     await this.matchModel.finishMatch(id);
   }
 
+  async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number) {
+    const matchUpdated = await this.matchModel.updateMatch(id, homeTeamGoals, awayTeamGoals);
+    return matchUpdated;
+  }
+
   // async getMatchById(id: number) {
   //   const match = await this.matchModel.getMatchById(id);
   //   return match;
