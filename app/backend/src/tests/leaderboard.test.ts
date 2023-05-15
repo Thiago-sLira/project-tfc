@@ -2,8 +2,11 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
-import { mockAllTeamsPerformance } from './mocks/leaderboard'; 
+import { mockAllTeams } from './mocks/team.mock';
+import { mockAllMatchesNotInProgress } from './mocks/match.mock';
+import { mockAllTeamsPerformance } from './mocks/leaderboard.mock';
 import Match from '../database/models/Match';
+import Team from '../database/models/Team';
 
 import { app } from '../app';
 // import AuthJWT from '../utils/AuthJWT';
@@ -22,7 +25,10 @@ describe('Testes do endpoint /leaderboard', () => {
   describe('Testes do método GET de /leaderboard/home', () => {
     it('Verifica se é possível retornar todas as informações do desempenho dos times da casa', async () => {
       modelLeaderboardStub = sinon.stub(Match, 'findAll')
-        .resolves(mockAllTeamsPerformance as unknown as Match[]);
+        .resolves(mockAllMatchesNotInProgress as unknown as Match[]);
+
+      modelLeaderboardStub = sinon.stub(Team, 'findAll')
+        .resolves(mockAllTeams as unknown as Team[]);
 
       const response = await chai.request(app)
         .get('/leaderboard/home')
@@ -56,5 +62,5 @@ describe('Testes do endpoint /leaderboard', () => {
     //   expect(response.body.message).to.be.equal(messageInvalidFields);
     // });
   });
-  
+
 });
