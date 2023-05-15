@@ -80,6 +80,8 @@ export default class LeaderboardService {
       totalLosses: 0,
       goalsFavor: 0,
       goalsOwn: 0,
+      goalsBalance: 0,
+      efficiency: 0,
     };
   }
 }
