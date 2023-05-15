@@ -7,7 +7,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 2,
     "goalsFavor": 3,
-    "goalsOwn": 7
+    "goalsOwn": 7,
+    "goalsBalance": -4,
+    "efficiency": 11.11
   },
   {
     "name": "Bahia",
@@ -17,7 +19,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 3,
     "goalsFavor": 0,
-    "goalsOwn": 4
+    "goalsOwn": 4,
+    "goalsBalance": -4,
+    "efficiency": 0
   },
   {
     "name": "Botafogo",
@@ -27,7 +31,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 1,
     "goalsFavor": 2,
-    "goalsOwn": 4
+    "goalsOwn": 4,
+    "goalsBalance": -2,
+    "efficiency": 44.44
   },
   {
     "name": "Corinthians",
@@ -37,7 +43,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 0,
     "goalsFavor": 8,
-    "goalsOwn": 2
+    "goalsOwn": 2,
+    "goalsBalance": 6,
+    "efficiency": 100
   },
   {
     "name": "Cruzeiro",
@@ -47,7 +55,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 1,
     "goalsFavor": 2,
-    "goalsOwn": 3
+    "goalsOwn": 3,
+    "goalsBalance": -1,
+    "efficiency": 16.67
   },
   {
     "name": "Ferroviária",
@@ -57,7 +67,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 1,
     "goalsFavor": 3,
-    "goalsOwn": 2
+    "goalsOwn": 2,
+    "goalsBalance": 1,
+    "efficiency": 50
   },
   {
     "name": "Flamengo",
@@ -67,7 +79,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 1,
     "goalsFavor": 1,
-    "goalsOwn": 2
+    "goalsOwn": 2,
+    "goalsBalance": -1,
+    "efficiency": 16.67
   },
   {
     "name": "Grêmio",
@@ -77,7 +91,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 0,
     "goalsFavor": 4,
-    "goalsOwn": 1
+    "goalsOwn": 1,
+    "goalsBalance": 3,
+    "efficiency": 100
   },
   {
     "name": "Internacional",
@@ -87,7 +103,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 1,
     "goalsFavor": 4,
-    "goalsOwn": 6
+    "goalsOwn": 6,
+    "goalsBalance": -2,
+    "efficiency": 44.44
   },
   {
     "name": "Minas Brasília",
@@ -97,7 +115,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 2,
     "goalsFavor": 3,
-    "goalsOwn": 6
+    "goalsOwn": 6,
+    "goalsBalance": -3,
+    "efficiency": 11.11
   },
   {
     "name": "Napoli-SC",
@@ -107,7 +127,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 2,
     "totalLosses": 0,
     "goalsFavor": 2,
-    "goalsOwn": 2
+    "goalsOwn": 2,
+    "goalsBalance": 0,
+    "efficiency": 33.33
   },
   {
     "name": "Palmeiras",
@@ -117,7 +139,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 0,
     "goalsFavor": 10,
-    "goalsOwn": 5
+    "goalsOwn": 5,
+    "goalsBalance": 5,
+    "efficiency": 77.78
   },
   {
     "name": "Real Brasília",
@@ -127,7 +151,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 0,
     "goalsFavor": 2,
-    "goalsOwn": 0
+    "goalsOwn": 0,
+    "goalsBalance": 2,
+    "efficiency": 100
   },
   {
     "name": "Santos",
@@ -137,7 +163,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 0,
     "goalsFavor": 9,
-    "goalsOwn": 3
+    "goalsOwn": 3,
+    "goalsBalance": 6,
+    "efficiency": 100
   },
   {
     "name": "São José-SP",
@@ -147,7 +175,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 0,
     "totalLosses": 3,
     "goalsFavor": 2,
-    "goalsOwn": 5
+    "goalsOwn": 5,
+    "goalsBalance": -3,
+    "efficiency": 0
   },
   {
     "name": "São Paulo",
@@ -157,7 +187,9 @@ const mockAllTeamsPerformance = [
     "totalDraws": 1,
     "totalLosses": 0,
     "goalsFavor": 4,
-    "goalsOwn": 1
+    "goalsOwn": 1,
+    "goalsBalance": 3,
+    "efficiency": 66.67
   }
 ];
 
