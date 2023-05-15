@@ -17,7 +17,28 @@ export default class LeaderboardService {
     },
   ) { }
 
-  
+  async calculateTeamPerformance(team, matchesPerTeam) {
+    this.performance.name = team.name;
+    this.performance.totalGames = matchesPerTeam.length;
+
+    for (let i = 0; i < matchesPerTeam.length; i += 1) {
+      const match = matchesPerTeam[i];
+      this.performance.goalsFavor += match.homeTeamGoals;
+      this.performance.goalsOwn += match.awayTeamGoals;
+
+      if (match.homeTeamGoals > match.awayTeamGoals) {
+        this.performance.totalVictories += 1;
+        this.performance.totalPoints += 3;
+      } else if (match.homeTeamGoals < match.awayTeamGoals) {
+        this.performance.totalLosses += 1;
+      } else {
+        this.performance.totalDraws += 1;
+        this.performance.totalPoints += 1;
+      }
+    }
+
+    return this.performance;
+  }
 
   async allHomeTeamsPerformance(allMatches, allTeams) {
     const calculateAllTeamsPerformance = allTeams.reduce((acc, team) => {
