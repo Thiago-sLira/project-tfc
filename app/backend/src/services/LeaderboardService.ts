@@ -19,7 +19,14 @@ export default class LeaderboardService {
 
   
 
-  
+  async allHomeTeamsPerformance(allMatches, allTeams) {
+    const calculateAllTeamsPerformance = allTeams.reduce((acc, team) => {
+      const matchesPerTeam = allMatches.filter(({ homeTeamId }) => homeTeamId === team.id);
+      const performance = this.calculateTeamPerformance(team, matchesPerTeam);
+      return [...acc, performance];
+    }, []);
+    return calculateAllTeamsPerformance;
+  }
 
   async getAllHomeTeamsPerformance() {
     const allMatches = await this.matchModel.getAllMatchesInProgressWithoutScope(false);
