@@ -1,10 +1,10 @@
-import LeaderboardModel from '../models/LeaderboardModel';
+import MatchModel from '../models/MatchModel';
 
 export default class LeaderboardService {
-  constructor(private leaderboardModel = new LeaderboardModel()) { }
+  constructor(private matchModel = new MatchModel()) { }
 
   async getAllHomeTeamsPerformance() {
-    const allHomeTeamsPerformance = await this.leaderboardModel.getAllHomeTeamsPerformance();
-    return allHomeTeamsPerformance;
+    const allMatches = await this.matchModel.getAllMatchesInProgress(false);
+    return 'oi';
   }
 }
