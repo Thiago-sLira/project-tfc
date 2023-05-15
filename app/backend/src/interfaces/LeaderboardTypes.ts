@@ -7,6 +7,8 @@ export type TeamPerformance = {
   totalLosses: number,
   goalsFavor: number,
   goalsOwn: number,
+  goalsBalance: number,
+  efficiency: number,
 };
 
 export type MatchData = {

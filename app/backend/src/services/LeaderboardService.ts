@@ -15,6 +15,8 @@ export default class LeaderboardService {
       totalLosses: 0,
       goalsFavor: 0,
       goalsOwn: 0,
+      goalsBalance: 0,
+      efficiency: 0,
     },
   ) { }
 
@@ -37,6 +39,8 @@ export default class LeaderboardService {
         this.performance.totalPoints += 1;
       }
     }
+    this.performance.goalsBalance = this.performance.goalsFavor - this.performance.goalsOwn;
+    this.performance.efficiency = (this.performance.totalPoints / (this.performance.totalGames * 3)) * 100;
 
     return this.performance;
   }
