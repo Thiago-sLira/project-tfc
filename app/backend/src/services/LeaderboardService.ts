@@ -97,8 +97,8 @@ export default class LeaderboardService {
 
     const allHomeTeamsPerformance = this.allHomeTeamsPerformance(allMatches, allTeams);
 
-    const allHomeTeamsPerformanceOrdered = this.orderTeamsByPerformance(allHomeTeamsPerformance);
+    const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allHomeTeamsPerformance);
 
-    return allHomeTeamsPerformanceOrdered;
+    return performanceOrdered;
   }
 }
