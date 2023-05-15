@@ -76,18 +76,19 @@ export default class LeaderboardService {
     };
   }
 
-  orderTeamsByPerformance(teamsPerformance: TeamPerformance[]) {
-    return teamsPerformance.sort((a, b) => {
+  static orderTeamsByPerformance(teamsPerformance: TeamPerformance[]) {
+    const resultOrdered = teamsPerformance.sort((a, b) => {
       if (a.totalPoints !== b.totalPoints) {
         return b.totalPoints - a.totalPoints; // Ordena por totalPoints de forma decrescente
-      } else if (a.totalVictories !== b.totalVictories) {
+      } if (a.totalVictories !== b.totalVictories) {
         return b.totalVictories - a.totalVictories; // Ordena por totalVictories de forma decrescente
-      } else if (a.goalsBalance !== b.goalsBalance) {
+      } if (a.goalsBalance !== b.goalsBalance) {
         return b.goalsBalance - a.goalsBalance; // Ordena por goalsBalance de forma decrescente
-      } else {
-        return b.goalsFavor - a.goalsFavor; // Ordena por goalsFavor de forma decrescente
       }
+      return b.goalsFavor - a.goalsFavor; // Ordena por goalsFavor de forma decrescente
     });
+
+    return resultOrdered;
   }
 
   async getAllHomeTeamsPerformance() {
