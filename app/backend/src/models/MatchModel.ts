@@ -9,6 +9,15 @@ export default class MatchModel {
     return matches;
   }
 
+  async getAllMatchesInProgressWithoutScope(inProgress: boolean) {
+    const matches = await this.match.findAll({
+      where: {
+        inProgress,
+      },
+    });
+    return matches;
+  }
+
   async getAllMatchesInProgress(inProgress: boolean) {
     const matches = await this.match.scope('withTeams').findAll({
       where: {
