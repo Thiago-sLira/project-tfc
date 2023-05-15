@@ -24,9 +24,9 @@ export default class LeaderboardService {
     this.performance.name = team.teamName;
     this.performance.totalGames = matchesPerTeam.length;
     this.performance.goalsBalance = this.performance.goalsFavor - this.performance.goalsOwn;
-    this.performance.efficiency = (
+    this.performance.efficiency = Number(((
       this.performance.totalPoints / (this.performance.totalGames * 3)
-    ) * 100;
+    ) * 100).toFixed(2));
   }
 
   calculateTeamPerformance(team: TeamType, matchesPerTeam: MatchData[]) {
