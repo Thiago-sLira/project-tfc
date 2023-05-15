@@ -28,7 +28,7 @@ describe('Testes do endpoint /leaderboard', () => {
         .get('/leaderboard/home')
 
       expect(response.status).to.be.equal(200);
-      expect(response.body.message).to.be.equal(mockAllTeamsPerformance);
+      expect(response.body).to.be.deep.equal(mockAllTeamsPerformance);
     });
     // it('Verifica se não é possível fazer um login com email invalido', async () => {
     //   const response = await chai.request(app)
