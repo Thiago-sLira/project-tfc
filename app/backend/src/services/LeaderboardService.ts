@@ -20,27 +20,31 @@ export default class LeaderboardService {
     },
   ) { }
 
-  calculateTeamPerformance(team: TeamType, matchesPerTeam: MatchData[]) {
+  setNotConditionalPerformanceData(team: TeamType, matchesPerTeam: MatchData[]) {
     this.performance.name = team.teamName;
     this.performance.totalGames = matchesPerTeam.length;
+    this.performance.goalsBalance = this.performance.goalsFavor - this.performance.goalsOwn;
+    this.performance.efficiency = (
+      this.performance.totalPoints / (this.performance.totalGames * 3)
+    ) * 100;
+  }
 
+  calculateTeamPerformance(team: TeamType, matchesPerTeam: MatchData[]) {
     for (let i = 0; i < matchesPerTeam.length; i += 1) {
-      const match = matchesPerTeam[i];
-      this.performance.goalsFavor += match.homeTeamGoals;
-      this.performance.goalsOwn += match.awayTeamGoals;
+      this.performance.goalsFavor += matchesPerTeam[i].homeTeamGoals;
+      this.performance.goalsOwn += matchesPerTeam[i].awayTeamGoals;
 
-      if (match.homeTeamGoals > match.awayTeamGoals) {
+      if (matchesPerTeam[i].homeTeamGoals > matchesPerTeam[i].awayTeamGoals) {
         this.performance.totalVictories += 1;
         this.performance.totalPoints += 3;
-      } else if (match.homeTeamGoals < match.awayTeamGoals) {
+      } else if (matchesPerTeam[i].homeTeamGoals < matchesPerTeam[i].awayTeamGoals) {
         this.performance.totalLosses += 1;
       } else {
         this.performance.totalDraws += 1;
         this.performance.totalPoints += 1;
       }
     }
-    this.performance.goalsBalance = this.performance.goalsFavor - this.performance.goalsOwn;
-    this.performance.efficiency = (this.performance.totalPoints / (this.performance.totalGames * 3)) * 100;
+    this.setNotConditionalPerformanceData(team, matchesPerTeam);
 
     return this.performance;
   }
