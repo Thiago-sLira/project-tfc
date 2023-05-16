@@ -49,7 +49,7 @@ export default class LeaderboardService {
     return this.performance;
   }
 
-  allHomeTeamsPerformance(allMatches: MatchData[], allTeams: TeamType[]) {
+  allTeamsPerformance(allMatches: MatchData[], allTeams: TeamType[]) {
     const initialValue: TeamPerformance[] = [];
     const calculateAllTeamsPerformance = allTeams.reduce((acc, team) => {
       const matchesPerTeam = allMatches.filter(({ homeTeamId }) => homeTeamId === team.id);
@@ -95,7 +95,7 @@ export default class LeaderboardService {
     const allMatches = await this.matchModel.getAllMatchesInProgressWithoutScope(false);
     const allTeams = await this.teamModel.getAllTeams();
 
-    const allHomeTeamsPerformance = this.allHomeTeamsPerformance(allMatches, allTeams);
+    const allHomeTeamsPerformance = this.allTeamsPerformance(allMatches, allTeams);
 
     const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allHomeTeamsPerformance);
 
@@ -106,7 +106,7 @@ export default class LeaderboardService {
     const allMatches = await this.matchModel.getAllMatchesInProgressWithoutScope(true);
     const allTeams = await this.teamModel.getAllTeams();
 
-    const allHomeTeamsPerformance = this.allHomeTeamsPerformance(allMatches, allTeams);
+    const allHomeTeamsPerformance = this.allTeamsPerformance(allMatches, allTeams);
 
     const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allHomeTeamsPerformance);
 
