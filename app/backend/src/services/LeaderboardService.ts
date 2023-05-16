@@ -52,7 +52,7 @@ export default class LeaderboardService {
     return this.performance;
   }
 
-  calculateTeamsPerformance(allMatches: MatchData[], allTeams: TeamType[], homeTeam: boolean) {
+  setTeamsPerformance(allMatches: MatchData[], allTeams: TeamType[], homeTeam: boolean) {
     return allTeams.map((team) => {
       const matchesPerTeam = allMatches.filter(({ homeTeamId, awayTeamId }) =>
         (homeTeam ? homeTeamId === team.id : awayTeamId === team.id));
@@ -101,7 +101,7 @@ export default class LeaderboardService {
     const allTeams = await this.teamModel.getAllTeams();
 
     const homeTeam = true;
-    const allHomeTeamsPerformance = this.calculateTeamsPerformance(allMatches, allTeams, homeTeam);
+    const allHomeTeamsPerformance = this.setTeamsPerformance(allMatches, allTeams, homeTeam);
 
     const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allHomeTeamsPerformance);
 
@@ -113,10 +113,25 @@ export default class LeaderboardService {
     const allTeams = await this.teamModel.getAllTeams();
 
     const homeTeam = false;
-    const allAwayTeamsPerformance = this.calculateTeamsPerformance(allMatches, allTeams, homeTeam);
+    const allAwayTeamsPerformance = this.setTeamsPerformance(allMatches, allTeams, homeTeam);
 
     const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allAwayTeamsPerformance);
 
     return performanceOrdered;
+  }
+
+  async getOverallTeamsPerformance() {
+    const allHomeTeamsPerformance = await this.getAllHomeTeamsPerformance();
+    const allAwayTeamsPerformance = await this.getAllAwayTeamsPerformance();
+
+    const initialValue: TeamPerformance[] = [];
+
+    const overallTeamsPerformance = allHomeTeamsPerformance.reduce((acc, performance) => {
+      const overallPerformance = allAwayTeamsPerformance.find((awayPerformance) =>
+        awayPerformance.name === performance.name);
+
+
+      return [...acc, overallPerformance];
+    }, initialValue);
   }
 }
