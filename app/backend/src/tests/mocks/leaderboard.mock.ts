@@ -72,6 +72,18 @@ const mockAllHomeTeamsPerformance = [
     "efficiency": 66.67
   },
   {
+    "name": "Flamengo",
+    "totalPoints": 4,
+    "totalGames": 3,
+    "totalVictories": 1,
+    "totalDraws": 1,
+    "totalLosses": 1,
+    "goalsFavor": 4,
+    "goalsOwn": 2,
+    "goalsBalance": 2,
+    "efficiency": 44.44
+  },
+  {
     "name": "Internacional",
     "totalPoints": 4,
     "totalGames": 3,
@@ -128,18 +140,6 @@ const mockAllHomeTeamsPerformance = [
     "totalLosses": 1,
     "goalsFavor": 2,
     "goalsOwn": 3,
-    "goalsBalance": -1,
-    "efficiency": 16.67
-  },
-  {
-    "name": "Flamengo",
-    "totalPoints": 1,
-    "totalGames": 2,
-    "totalVictories": 0,
-    "totalDraws": 1,
-    "totalLosses": 1,
-    "goalsFavor": 1,
-    "goalsOwn": 2,
     "goalsBalance": -1,
     "efficiency": 16.67
   },
@@ -377,13 +377,13 @@ const mockAllAwayTeamsPerformance = [
   {
     "name": "Napoli-SC",
     "totalPoints": 0,
-    "totalGames": 3,
+    "totalGames": 4,
     "totalVictories": 0,
     "totalDraws": 0,
-    "totalLosses": 3,
+    "totalLosses": 4,
     "goalsFavor": 1,
-    "goalsOwn": 10,
-    "goalsBalance": -9,
+    "goalsOwn": 13,
+    "goalsBalance": -12,
     "efficiency": 0
   }
 ];

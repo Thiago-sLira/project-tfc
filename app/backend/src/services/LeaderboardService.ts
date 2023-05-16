@@ -125,16 +125,16 @@ export default class LeaderboardService {
     awayPerformance: TeamPerformance[],
   ) {
     return homePerformance.map((homeTeam) => {
-      const awayTeam = awayPerformance.find((team) => team.name === homeTeam.name);
+      const awayTeam = awayPerformance.find((tm) => tm.name === homeTeam.name) as TeamPerformance;
       return {
         name: homeTeam.name,
-        totalPoints: homeTeam.totalPoints + (awayTeam ? awayTeam.totalPoints : 0),
-        totalGames: homeTeam.totalGames + (awayTeam ? awayTeam.totalGames : 0),
-        totalVictories: homeTeam.totalVictories + (awayTeam ? awayTeam.totalVictories : 0),
-        totalDraws: homeTeam.totalDraws + (awayTeam ? awayTeam.totalDraws : 0),
-        totalLosses: homeTeam.totalLosses + (awayTeam ? awayTeam.totalLosses : 0),
-        goalsFavor: homeTeam.goalsFavor + (awayTeam ? awayTeam.goalsFavor : 0),
-        goalsOwn: homeTeam.goalsOwn + (awayTeam ? awayTeam.goalsOwn : 0),
+        totalPoints: homeTeam.totalPoints + awayTeam.totalPoints,
+        totalGames: homeTeam.totalGames + awayTeam.totalGames,
+        totalVictories: homeTeam.totalVictories + awayTeam.totalVictories,
+        totalDraws: homeTeam.totalDraws + awayTeam.totalDraws,
+        totalLosses: homeTeam.totalLosses + awayTeam.totalLosses,
+        goalsFavor: homeTeam.goalsFavor + awayTeam.goalsFavor,
+        goalsOwn: homeTeam.goalsOwn + awayTeam.goalsOwn,
         goalsBalance: 0,
         efficiency: 0,
       };

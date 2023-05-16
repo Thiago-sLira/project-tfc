@@ -1377,6 +1377,20 @@ const mockAllMatchesNotInProgress = [
     "awayTeam": {
       "teamName": "Grêmio"
     }
+  },
+  {
+    "id": 49,
+    "homeTeamId": 7,
+    "homeTeamGoals": 3,
+    "awayTeamId": 11,
+    "awayTeamGoals": 0,
+    "inProgress": false,
+    "homeTeam": {
+      "teamName": "Flamengo"
+    },
+    "awayTeam": {
+      "teamName": "Napoli-SC"
+    }
   }
 ];
 

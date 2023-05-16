@@ -53,6 +53,19 @@ describe('Testes do endpoint /leaderboard', () => {
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal(mockAllAwayTeamsPerformance);
     });
+    it('Verifica se é possível retornar todas as informações do desempenho geral dos times', async () => {
+      modelLeaderboardStub = sinon.stub(Match, 'findAll')
+        .resolves(mockAllMatchesNotInProgress as unknown as Match[]);
+
+      modelLeaderboardStub = sinon.stub(Team, 'findAll')
+        .resolves(mockAllTeams as unknown as Team[]);
+
+      const response = await chai.request(app)
+        .get('/leaderboard')
+
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(mockAllTeamsPerformanceOverrall);
+    });
   });
 
 });
