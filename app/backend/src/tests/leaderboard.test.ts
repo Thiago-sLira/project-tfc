@@ -4,7 +4,11 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import { mockAllTeams } from './mocks/team.mock';
 import { mockAllMatchesNotInProgress } from './mocks/match.mock';
-import { mockAllHomeTeamsPerformance } from './mocks/leaderboard.mock';
+import {
+  mockAllHomeTeamsPerformance,
+  mockAllAwayTeamsPerformance,
+  mockAllTeamsPerformanceOverrall,
+} from './mocks/leaderboard.mock';
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
 
@@ -36,31 +40,19 @@ describe('Testes do endpoint /leaderboard', () => {
       expect(response.status).to.be.equal(200);
       expect(response.body).to.be.deep.equal(mockAllHomeTeamsPerformance);
     });
-    // it('Verifica se não é possível fazer um login com email invalido', async () => {
-    //   const response = await chai.request(app)
-    //     .post('/login')
-    //     .send({
-    //       email: 'teste.teste',
-    //       password: '123456',
-    //     });
+    it('Verifica se é possível retornar todas as informações do desempenho dos times visitantes', async () => {
+      modelLeaderboardStub = sinon.stub(Match, 'findAll')
+        .resolves(mockAllMatchesNotInProgress as unknown as Match[]);
 
-    //   expect(response.status).to.be.equal(401);
-    //   expect(response.body.message).to.be.equal(messageInvalidFields);
-    // });
-    // it('Verifica se não é possível fazer um login com email não cadastrado', async () => {
-    //   modelLeaderboardStub = sinon.stub(User, 'findOne')
-    //     .resolves(mockUserDataInvalid as unknown as User);
+      modelLeaderboardStub = sinon.stub(Team, 'findAll')
+        .resolves(mockAllTeams as unknown as Team[]);
 
-    //   const response = await chai.request(app)
-    //     .post('/login')
-    //     .send({
-    //       email: 'teste@teste.cm',
-    //       password: '123456',
-    //     });
+      const response = await chai.request(app)
+        .get('/leaderboard/away')
 
-    //   expect(response.status).to.be.equal(401);
-    //   expect(response.body.message).to.be.equal(messageInvalidFields);
-    // });
+      expect(response.status).to.be.equal(200);
+      expect(response.body).to.be.deep.equal(mockAllAwayTeamsPerformance);
+    });
   });
 
 });

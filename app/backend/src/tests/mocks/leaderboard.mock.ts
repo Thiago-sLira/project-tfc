@@ -377,13 +377,13 @@ const mockAllAwayTeamsPerformance = [
   {
     "name": "Napoli-SC",
     "totalPoints": 0,
-    "totalGames": 4,
+    "totalGames": 3,
     "totalVictories": 0,
     "totalDraws": 0,
-    "totalLosses": 4,
+    "totalLosses": 3,
     "goalsFavor": 1,
-    "goalsOwn": 13,
-    "goalsBalance": -12,
+    "goalsOwn": 10,
+    "goalsBalance": -9,
     "efficiency": 0
   }
 ];
