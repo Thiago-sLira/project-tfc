@@ -1,4 +1,4 @@
-const mockAllTeamsPerformance = [
+const mockAllHomeTeamsPerformance = [
   {
     "name": "Santos",
     "totalPoints": 9,
@@ -194,5 +194,5 @@ const mockAllTeamsPerformance = [
 ];
 
 export {
-  mockAllTeamsPerformance,
+  mockAllHomeTeamsPerformance,
 };

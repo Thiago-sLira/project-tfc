@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import { mockAllTeams } from './mocks/team.mock';
 import { mockAllMatchesNotInProgress } from './mocks/match.mock';
-import { mockAllTeamsPerformance } from './mocks/leaderboard.mock';
+import { mockAllHomeTeamsPerformance } from './mocks/leaderboard.mock';
 import Match from '../database/models/Match';
 import Team from '../database/models/Team';
 
@@ -34,7 +34,7 @@ describe('Testes do endpoint /leaderboard', () => {
         .get('/leaderboard/home')
 
       expect(response.status).to.be.equal(200);
-      expect(response.body).to.be.deep.equal(mockAllTeamsPerformance);
+      expect(response.body).to.be.deep.equal(mockAllHomeTeamsPerformance);
     });
     // it('Verifica se não é possível fazer um login com email invalido', async () => {
     //   const response = await chai.request(app)
