@@ -101,4 +101,15 @@ export default class LeaderboardService {
 
     return performanceOrdered;
   }
+
+  async getAllAwayTeamsPerformance() {
+    const allMatches = await this.matchModel.getAllMatchesInProgressWithoutScope(true);
+    const allTeams = await this.teamModel.getAllTeams();
+
+    const allHomeTeamsPerformance = this.allHomeTeamsPerformance(allMatches, allTeams);
+
+    const performanceOrdered = LeaderboardService.orderTeamsByPerformance(allHomeTeamsPerformance);
+
+    return performanceOrdered;
+  }
 }
