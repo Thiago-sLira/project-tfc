@@ -135,6 +135,8 @@ export default class LeaderboardService {
         totalLosses: homeTeam.totalLosses + (awayTeam ? awayTeam.totalLosses : 0),
         goalsFavor: homeTeam.goalsFavor + (awayTeam ? awayTeam.goalsFavor : 0),
         goalsOwn: homeTeam.goalsOwn + (awayTeam ? awayTeam.goalsOwn : 0),
+        goalsBalance: 0,
+        efficiency: 0,
       };
     });
   }
@@ -150,5 +152,16 @@ export default class LeaderboardService {
   async getOverallTeamsPerformance() {
     const allHomeTeamsPerformance = await this.getAllHomeTeamsPerformance();
     const allAwayTeamsPerformance = await this.getAllAwayTeamsPerformance();
+
+    const overallPerformance = LeaderboardService.setOverallPerformance(
+      allHomeTeamsPerformance,
+      allAwayTeamsPerformance,
+    );
+
+    const finalOverallPerformance = LeaderboardService.updateEfficiency(overallPerformance);
+
+    const performanceOrdered = LeaderboardService.orderTeamsByPerformance(finalOverallPerformance);
+
+    return performanceOrdered;
   }
 }
