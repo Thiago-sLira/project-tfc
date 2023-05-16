@@ -120,12 +120,12 @@ export default class LeaderboardService {
     return performanceOrdered;
   }
 
-  async getOverallTeamsPerformance() {
-    const allHomeTeamsPerformance = await this.getAllHomeTeamsPerformance();
-    const allAwayTeamsPerformance = await this.getAllAwayTeamsPerformance();
-
-    return allHomeTeamsPerformance.map((homeTeam) => {
-      const awayTeam = allAwayTeamsPerformance.find((team) => team.name === homeTeam.name);
+  static setOverallPerformance(
+    homePerformance: TeamPerformance[],
+    awayPerformance: TeamPerformance[],
+  ) {
+    return homePerformance.map((homeTeam) => {
+      const awayTeam = awayPerformance.find((team) => team.name === homeTeam.name);
       return {
         name: homeTeam.name,
         totalPoints: homeTeam.totalPoints + (awayTeam ? awayTeam.totalPoints : 0),
@@ -135,10 +135,20 @@ export default class LeaderboardService {
         totalLosses: homeTeam.totalLosses + (awayTeam ? awayTeam.totalLosses : 0),
         goalsFavor: homeTeam.goalsFavor + (awayTeam ? awayTeam.goalsFavor : 0),
         goalsOwn: homeTeam.goalsOwn + (awayTeam ? awayTeam.goalsOwn : 0),
-        goalsBalance: homeTeam.goalsBalance + (awayTeam ? awayTeam.goalsBalance : 0),
-        efficiency: ((homeTeam.totalPoints + (awayTeam ? awayTeam.totalPoints : 0))
-          / (homeTeam.totalGames + (awayTeam ? awayTeam.totalGames : 0))) * 100,
       };
     });
+  }
+
+  static updateEfficiency(overallPerformance: TeamPerformance[]) {
+    return overallPerformance.map((team) => ({
+      ...team,
+      goalsBalance: team.goalsFavor - team.goalsOwn,
+      efficiency: Number(((team.totalPoints / (team.totalGames * 3)) * 100).toFixed(2)),
+    }));
+  }
+
+  async getOverallTeamsPerformance() {
+    const allHomeTeamsPerformance = await this.getAllHomeTeamsPerformance();
+    const allAwayTeamsPerformance = await this.getAllAwayTeamsPerformance();
   }
 }
