@@ -8,4 +8,9 @@ export default class LeaderboardController {
     const allHomeTeamsPerformance = await this.leaderboardService.getAllHomeTeamsPerformance();
     res.status(200).json(allHomeTeamsPerformance);
   }
+
+  async getAllAwayTeamsPerformance(_req: Request, res: Response) {
+    const allAwayTeamsPerformance = await this.leaderboardService.getAllAwayTeamsPerformance();
+    res.status(200).json(allAwayTeamsPerformance);
+  }
 }
