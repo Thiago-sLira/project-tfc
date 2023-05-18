@@ -15,6 +15,10 @@
 <span><strong><em>Express.js</em></strong></span><br>
 <span><strong><em>Sequelize</em></strong></span><br>
 <span><strong><em>Docker</em></strong></span><br>
+<!-- 
+<h3>Project look</h3>
+
+<img alt="image-readme" src="./github/TFC-Classificacao.png" title="Star-Wars-Planets-Search"/> -->
 
 <h2>🎁 Expressions of Gratitude</h2>
 <p>Tell others about this project. 📢</p>
