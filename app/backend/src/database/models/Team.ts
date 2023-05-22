@@ -2,11 +2,24 @@ import { Model, DataTypes } from 'sequelize';
 import db from '.';
 import Match from './Match';
 
-class Team extends Model {
+export type TeamAtributes = {
+  id: number,
+  teamName: string,
+}
+
+export type TeamCreationAtributes = Omit<TeamAtributes, 'id'>;
+
+class Team extends Model<TeamAtributes, TeamCreationAtributes> {
   declare teamName: string;
 }
 
 Team.init({
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER,
+  },
   teamName: {
     allowNull: false,
     type: DataTypes.STRING,
